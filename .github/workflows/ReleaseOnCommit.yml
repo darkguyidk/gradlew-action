@@ -12,4 +12,4 @@ jobs:
        - name: Release
          uses: notpeelz/action-gh-create-release@v5.0.1
          with:
-          tag: ${{github.event.head_commit.tree_id}}
+          tag: ${{github.job}}
