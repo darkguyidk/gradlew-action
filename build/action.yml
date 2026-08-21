@@ -1,0 +1,25 @@
+name: 'Gradle/gradlew build command'
+description: 'Same as darkguyidk/gradlew-action, just only for the build command'
+inputs:
+  command-args:
+    description: 'The args of the command to run'
+    required: false
+    default: ''
+  gradlew-path:
+    description: 'The path to the gradlew file/script, with the gradlew part included'
+    required: false
+    default: 'gradlew'
+outputs:
+  gradle-command-output:
+    description: "The output from the gradlew command"
+    value: ${{steps.command.outputs.gradlew-output}}
+runs:
+  using: composite
+  steps:
+    - name: Run Command
+      uses: darkguyidk/gradlew-action@latest
+      with:
+        command: "build"
+        command-args: ${{inputs.command-args}}
+        gradlew-path: ${{inputs.gradlew-path}}
+        
