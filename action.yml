@@ -1,0 +1,29 @@
+name: 'Gradle/gradlew command runner'
+description: 'Just a gradlew command runner, dunno why you would use this tho'
+inputs:
+  command:
+    description: 'The command to run'
+    required: true
+  command-args:
+    description: 'The args of the command to run'
+    required: false
+    default: ''
+  gradlew-path:
+    description: 'The path to the gradlew file/script, with the gradlew part included'
+    required: false
+    default: 'gradlew'
+outputs:
+  gradle-command-output:
+    description: "The output from the gradlew command"
+    value: ${{steps.command.outputs.gradlew-output}}
+runs:
+  using: composite
+  steps:
+    - name: Run Command
+      env:
+        GRADLEPATH: ${{inputs.gradlew-path}}
+        COMMAND: ${{inputs.command}}
+        ARGS: ${{inputs.command-args}}
+      id: command
+      run: echo "gradlew-output=$(./$GRADLEPATH $COMMAND $ARGS)" >> $GITHUB_OUTPUT
+      shell: bash
