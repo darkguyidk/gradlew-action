@@ -1,0 +1,12 @@
+name: Release on commit
+on: 
+  push:
+    branches: [ "master" ]
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+       - name: Release
+         uses: notpeelz/action-gh-create-release@v5.0.1
+         with:
+          tag: ${{github.event.head_commit.tree_id}}
